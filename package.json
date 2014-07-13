@@ -1,0 +1,11 @@
+{
+  "name": "flujo_trabajo",
+  "version": "0.0.1",
+  "description": "Aplicacion web para manejo de flujo de trabajo, Oja.la",
+  "main": "index.js",  
+  "repository": {
+    "type": "git",
+    "url": "?.git"
+  },
+  "author": "Oja.la"
+}

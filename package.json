@@ -2,10 +2,14 @@
   "name": "flujo_trabajo",
   "version": "0.0.1",
   "description": "Aplicacion web para manejo de flujo de trabajo, Oja.la",
-  "main": "index.js",  
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "?.git"
   },
-  "author": "Oja.la"
+  "author": "Oja.la",
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-util": "^3.0.0"
+  }
 }

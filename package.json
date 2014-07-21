@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "?.git"
+    "url": "https://github.com/carlosjgonza/flujo_trabajo.git"
   },
   "author": "Oja.la",
   "devDependencies": {

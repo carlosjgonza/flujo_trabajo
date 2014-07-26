@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	connect = require('gulp-connect'),
 	gulpif = require('gulp-if'),
 	gulpuglify = require('gulp-uglify'),
+	minifyHTML = require('gulp-minify-html'),
 	gutil = require('gulp-util');
 
 var env,
@@ -40,7 +41,7 @@ jsSources = [
 
 sassSources = ['componentes/sass/style.scss'];
 
-htmlSources = [outputDir + '*.html'];
+htmlSources = ['builds/desarrollo/*.html'];
 
 jsonSources = [outputDir + 'js/*.json'];
 
@@ -74,6 +75,8 @@ gulp.task('compass', function(){
 
 gulp.task("html", function(){
 	gulp.src(htmlSources)
+	.pipe(gulpif(env==='produccion', minifyHTML()))
+	.pipe(gulpif(env==='produccion', gulp.dest(outputDir)))
 	.pipe(connect.reload());
 });
 

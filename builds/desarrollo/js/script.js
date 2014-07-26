@@ -77,7 +77,7 @@ $ = require('jquery');
 
 (fill = function(item) {
   return $('.tagline').append("" + item);
-})('Una de las más creativas obras de arte');
+})('Las más creativa obra de arte');
 
 fill;
 

@@ -7,20 +7,40 @@ var gulp = require('gulp'),
 	connect = require('gulp-connect'),
 	gutil = require('gulp-util');
 
-var coffeeSources = ['componentes/coffee/*.coffee'];
+var env,
+	coffeeSources,
+	jsSources,
+	sassSources,
+	htmlSources,
+	jsonSources,
+	sassStyle,
+	outputDir;
 
-var jsSources = [
+env = process.env.NODE_ENV || 'desarrollo';
+
+if(env==='desarrollo'){
+	outputDir = 'builds/desarrollo/';
+	sassStyle = 'expanded';
+}
+else{
+	outputDir = 'builds/produccion/';
+	sassStyle = 'compressed';
+}
+
+coffeeSources = ['componentes/coffee/*.coffee'];
+
+jsSources = [
 	'componentes/scripts/pixgrid.js',
 	'componentes/scripts/rclick.js',
 	'componentes/scripts/tagline.js',
 	'componentes/scripts/template.js'
 ];
 
-var sassSources = ['componentes/sass/style.scss'];
+sassSources = ['componentes/sass/style.scss'];
 
-var htmlSources = ['builds/desarrollo/*.html'];
+htmlSources = [outputDir + '*.html'];
 
-var jsonSources = ['builds/desarrollo/js/*.json'];
+jsonSources = [outputDir + 'js/*.json'];
 
 gulp.task('coffee', function(){
 	gulp.src(coffeeSources)
@@ -33,7 +53,7 @@ gulp.task('js', ['coffee'], function(){
 	gulp.src(jsSources)
 	.pipe(concat('script.js'))
 	.pipe(browserify())
-	.pipe(gulp.dest('builds/desarrollo/js'))
+	.pipe(gulp.dest(outputDir+'js'))
 	.pipe(connect.reload());
 });
 
@@ -41,11 +61,11 @@ gulp.task('compass', function(){
 	gulp.src(sassSources)
 	.pipe(compass({
 		sass: 'componentes/sass',
-		image: 'builds/desarrollo/imagenes',
-		style: 'expanded'
+		image: outputDir+'imagenes',
+		style: sassStyle
 	})
 	.on('error', gutil.log))
-	.pipe(gulp.dest('builds/desarrollo/css'))
+	.pipe(gulp.dest(outputDir+'css'))
 	.pipe(connect.reload());
 });
 
@@ -61,7 +81,7 @@ gulp.task("json", function(){
 
 gulp.task("connect", function(){
 	connect.server({
-		root: 'builds/desarrollo',
+		root: outputDir,
 		livereload: true
 	});
 });

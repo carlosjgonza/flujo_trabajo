@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	gulpuglify = require('gulp-uglify'),
 	minifyHTML = require('gulp-minify-html'),
+	jsonminify = require('gulp-jsonminify'),
 	gutil = require('gulp-util');
 
 var env,
@@ -43,7 +44,7 @@ sassSources = ['componentes/sass/style.scss'];
 
 htmlSources = ['builds/desarrollo/*.html'];
 
-jsonSources = [outputDir + 'js/*.json'];
+jsonSources = ['builds/desarrollo/js/*.json'];
 
 gulp.task('coffee', function(){
 	gulp.src(coffeeSources)
@@ -82,6 +83,8 @@ gulp.task("html", function(){
 
 gulp.task("json", function(){
 	gulp.src(jsonSources)
+	.pipe(gulpif(env==='produccion', jsonminify()))
+	.pipe(gulpif(env==='produccion', gulp.dest('builds/produccion/js')))
 	.pipe(connect.reload());
 });
 
